@@ -1,9 +1,7 @@
 const User = require('../models/User_M')
 const TBlacklist = require('../models/TBlacklist_M')
-const jwt = require('jsonwebtoken')
 const customError = require('../middleware/customError')
 const {StatusCodes} = require('http-status-codes')
-const { isString } = require('util')
 
 const register = async (req, res) =>{
     const {email} = req.body
