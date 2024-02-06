@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const { Schema } = require('mongoose')
+
 const commentSchema = mongoose.Schema({
 
     comment:{
@@ -15,9 +17,9 @@ const commentSchema = mongoose.Schema({
         type: Number,
     },
     likedBy:{
-        type: [mongoose.Types.ObjectId],
+        type: [Schema.Types.ObjectId],
         ref:'User',
-        unique: true,
+        default: [],
     },
     twitRefrence:{
         type: mongoose.Types.ObjectId,
@@ -29,5 +31,11 @@ const commentSchema = mongoose.Schema({
         required: [true, 'Valid User is required']
     }
 },{timestamps:true})
+
+commentSchema.pre('save', async function(){
+
+    this.likes = 0;
+
+})
 
 module.exports = mongoose.model('Comments', commentSchema)

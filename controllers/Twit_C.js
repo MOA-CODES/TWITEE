@@ -33,12 +33,9 @@ const likeTwit = async (req, res)=>{
 
     const getlikes = gettwit.likes
 
-    console.log(getlikes)
-
     if(!((gettwit.likedBy).indexOf(userId)== -1)){ //if you've already liked the twit
         updates.likes = getlikes-1
 
-        console.log(updates.likes +"first")
         const twitP1 = await Twit.findOneAndUpdate({_id:TwitId},updates,{new:true, runValidators:true})
         const twitP2 = await Twit.findOneAndUpdate({_id:TwitId},{'$pull':{'likedBy':userId}},{new:true, runValidators:true})
 
@@ -47,11 +44,10 @@ const likeTwit = async (req, res)=>{
     }else{
         updates.likes = getlikes+1
 
-        console.log(updates.likes +"second")
         const twitP1 = await Twit.findOneAndUpdate({_id:TwitId},updates,{new:true, runValidators:true})
         const twitP2 = await Twit.findOneAndUpdate({_id:TwitId},{'$push':{'likedBy':userId}},{new:true, runValidators:true})
     
-        res.status(StatusCodes.OK).json({msg:`you liked ${gettwit.username} Twit`, currentlikes: twitP2.likes})
+        res.status(StatusCodes.OK).json({msg:`you liked ${gettwit.username}'s Twit`, currentlikes: twitP2.likes})
     }
 }
 

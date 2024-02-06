@@ -1,0 +1,271 @@
+openapi: 3.0.0
+info:
+  title: TWITEE-API
+   contact:
+    name: MOA
+    url: https://github.com/MOA-CODES
+    email: moa.businessbread@gmail.com
+servers:
+- url: http://example.com
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: register user
+      operationId: registeruser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registeruserrequest'
+              - example:
+                  email: mas@gmail.com
+                  password: User1$
+            example:
+              email: mas@gmail.com
+              password: User1$
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: login user
+      operationId: loginuser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginuserrequest'
+              - example:
+                  email: moyo@gmail.com
+                  password: User1$
+            example:
+              email: moyo@gmail.com
+              password: User1$
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/logout:
+    post:
+      tags:
+      - Auth
+      summary: logout user
+      operationId: logoutuser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /twit:
+    post:
+      tags:
+      - Twit
+      summary: Make a Twit
+      operationId: MakeaTwit
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/MakeaTwitRequest'
+              - example:
+                  post: Hello Twitee im Moa
+            example:
+              post: Hello Twitee im Moa
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /twit/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+         type: string
+        required: true
+        description: The twit ID
+    delete:
+      tags:
+      - Twit
+      summary: Delete a Twit
+      operationId: DeleteaTwit
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+
+    patch:
+      tags:
+      - Twit
+      summary: Like a Twit
+      operationId: LikeaTwit
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /comment/{tid}:
+    parameters:
+      - in: path
+        name: tid
+        schema:
+         type: string
+        required: true
+        description: The twit ID
+    post:
+      tags:
+      - Comment
+      summary: Make a Comment
+      operationId: MakeaComment
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/MakeaCommentRequest'
+              - example:
+                  comment: You heard me you will
+            example:
+              comment: You heard me you will
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /comment/{cid}:
+    parameters:
+      - in: path
+        name: cid
+        schema:
+         type: string
+        required: true
+        description: The comment ID
+    delete:
+      tags:
+      - Comment
+      summary: Delete a Comment
+      operationId: DeleteaComment
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+
+    patch:
+      tags:
+      - Comment
+      summary: Like a Comment
+      operationId: LikeaComment
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    registeruserrequest:
+      title: registeruserrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: mas@gmail.com
+        password: User1$
+    loginuserrequest:
+      title: loginuserrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: moyo@gmail.com
+        password: User1$
+    MakeaTwitRequest:
+      title: MakeaTwitRequest
+      required:
+      - post
+      type: object
+      properties:
+        post:
+          type: string
+      example:
+        post: Hello Twitee im Moa
+    MakeaCommentRequest:
+      title: MakeaCommentRequest
+      required:
+      - comment
+      type: object
+      properties:
+        comment:
+          type: string
+      example:
+        comment: You heard me you will
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+
+- name: Auth
+  description: ''
+- name: Twit
+  description: ''
+- name: Comment
+  description: ''

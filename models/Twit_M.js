@@ -1,5 +1,5 @@
-const { number } = require('joi')
 const mongoose = require('mongoose')
+const { Schema } = require('mongoose')
 
 const TwitSchema  = mongoose.Schema({
 
@@ -17,9 +17,9 @@ const TwitSchema  = mongoose.Schema({
         type: Number,
     },
     likedBy:{
-        type: [mongoose.Types.ObjectId],
+        type: [Schema.Types.ObjectId],
         ref:'User',
-        unique: true,
+        default: [],
     },
     postedBy:{
         type: mongoose.Types.ObjectId,
