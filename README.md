@@ -5,3 +5,5 @@ TWITEE API --- This is a Backend API twitter clone, where you can regsiter, logi
     /api/v1/auth for auth routes.
     /api/v1/twit for posts routes.
     /api/v1/comment for friends routes.
+
+    app will be continually updated in the future
