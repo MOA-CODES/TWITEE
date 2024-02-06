@@ -22,16 +22,19 @@ const createComment = async (req, res)=>{
     const tcomment = await Comment.findOne({_id:req.params.tid})
     if(twit){
         twitrefName = twit.username
+
+        const comment = await Comment.create({...req.body})
+        res.status(StatusCodes.CREATED).json({msg:`you commented on ${twitrefName}'s twit`,comment})
     }
     if(tcomment){
         twitrefName = tcomment.username
-    }
-    if(twit === false && tcomment === false){
-        throw new customError('Twit or comment does not exist', StatusCodes.NOT_FOUND)
-    }
 
-    const comment = await Comment.create({...req.body})
-    res.status(StatusCodes.CREATED).json({msg:`you commented on `,comment})
+        const comment = await Comment.create({...req.body})
+        res.status(StatusCodes.CREATED).json({msg:`you commented on ${twitrefName}'s twit`,comment})
+    }
+    // if(twit === false && tcomment === false){
+    //     throw new customError('Twit or comment does not exist', StatusCodes.NOT_FOUND)
+    // }
 }
 
 const likeComment = async (req, res)=>{
