@@ -6,7 +6,7 @@ info:
     url: https://github.com/MOA-CODES
     email: moa.businessbread@gmail.com
 servers:
-- url: http://example.com
+- url: https://twitee-api-mocha.vercel.app/api/v1
   variables: {}
 paths:
   /auth/register:
