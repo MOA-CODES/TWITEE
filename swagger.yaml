@@ -1,10 +1,11 @@
 openapi: 3.0.0
 info:
   title: TWITEE-API
-   contact:
+  contact:
     name: MOA
     url: https://github.com/MOA-CODES
     email: moa.businessbread@gmail.com
+  version: '1.0'
 servers:
 - url: https://twitee-api-mocha.vercel.app/api/v1
   variables: {}
