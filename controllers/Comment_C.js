@@ -32,9 +32,6 @@ const createComment = async (req, res)=>{
         const comment = await Comment.create({...req.body})
         res.status(StatusCodes.CREATED).json({msg:`you commented on ${twitrefName}'s twit`,comment})
     }
-    else{
-        throw new customError('Twit or comment does not exist', StatusCodes.NOT_FOUND)
-    }
 }
 
 const likeComment = async (req, res)=>{
