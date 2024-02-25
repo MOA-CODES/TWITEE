@@ -64,4 +64,28 @@ const deleteTwit = async (req, res)=>{
     res.status(StatusCodes.OK).json({msg: `Twit (${TwitId}) deleted successfully`})
 }
 
-module.exports = {createTwit, deleteTwit, likeTwit}
+const getMyTwits =  async (req, res)=>{
+    const {userId} = req.user
+
+    const twit = await Twit.find({postedBy:userId}).sort('createdAt').select('_id username post likes likedBy createdAt updatedAt')
+
+    if(!twit){
+        throw new customError(`No Twit has been made by id ${userId} `, StatusCodes.NOT_FOUND)
+    }
+
+    res.status(StatusCodes.OK).json({no_twits: twit.length, twit})
+}
+
+const getTwit =  async (req, res)=>{
+    const TwitId = req.params.id
+
+    const twit = await Twit.findOne({_id:TwitId}).sort('createdAt').select('_id username post likes likedBy createdAt updatedAt')
+
+    if(!twit){
+        throw new customError(`No Twit with id ${TwitId} exists`, StatusCodes.NOT_FOUND)
+    }
+
+    res.status(StatusCodes.OK).json({twit})
+}
+
+module.exports = {createTwit, deleteTwit, likeTwit, getMyTwits, getTwit}

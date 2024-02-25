@@ -104,6 +104,19 @@ paths:
       deprecated: false
       security:
       - bearer: []
+    get:
+      tags:
+      - Twit
+      summary: Get My Twits
+      operationId: GetMyTwits
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
   /twit/{id}:
     parameters:
       - in: path
@@ -112,6 +125,20 @@ paths:
          type: string
         required: true
         description: The twit ID
+    get:
+      tags:
+      - Twit
+      summary: Get a Twit
+      operationId: GetaTwit
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+        
     delete:
       tags:
       - Twit
@@ -139,6 +166,44 @@ paths:
       deprecated: false
       security:
       - bearer: []
+  /twit/comment/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+         type: string
+        required: true
+        description: The twit ID
+  
+    get:
+      tags:
+      - Twit
+      summary: Get Twit Comments
+      operationId: GetTwitComments
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+
+  /comment:
+    get:
+      tags:
+      - Comment
+      summary: Get My Comments
+      operationId: GetMyComments
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []  
+    
   /comment/{tid}:
     parameters:
       - in: path
@@ -180,6 +245,20 @@ paths:
          type: string
         required: true
         description: The comment ID
+    get:
+      tags:
+      - Comment
+      summary: Get a Comment
+      operationId: GetaComment
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+        
     delete:
       tags:
       - Comment

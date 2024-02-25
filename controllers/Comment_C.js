@@ -80,4 +80,41 @@ const deleteComment = async (req, res)=>{
     res.status(StatusCodes.OK).json({msg:`Comment ${commentId} deleted successfully`})
 }
 
-module.exports = {createComment, deleteComment, likeComment}
+const getMycomments =  async (req, res)=>{
+    const {userId} = req.user
+
+    const comment = await Comment.find({commentedBy:userId}).sort('createdAt').select('_id username comment likes likedBy createdAt updatedAt')
+
+    if(!comment){
+        throw new customError(`No Comment has been made by id ${userId} `, StatusCodes.NOT_FOUND)
+    }
+
+    res.status(StatusCodes.OK).json({no_comments: comment.length, comment})
+    
+}
+
+const getComment =  async (req, res)=>{
+    const cid = req.params.cid
+
+    const comment = await Comment.findOne({_id:cid}).sort('createdAt').select('_id username comment likes likedBy createdAt updatedAt')
+
+    if(!comment){
+        throw new customError(`No comment with id ${cid} exists`, StatusCodes.NOT_FOUND)
+    }
+
+    res.status(StatusCodes.OK).json({comment})
+}
+
+const getTwitComments =  async (req, res)=>{
+    const tid = req.params.id
+
+    const comment = await Comment.find({twitRefrence:tid}).sort('createdAt').select('_id username comment likes likedBy createdAt updatedAt')
+
+    if(!comment){
+        throw new customError(`No comments under twit id ${cid} exists`, StatusCodes.NOT_FOUND)
+    }
+
+    res.status(StatusCodes.OK).json({comment})
+}
+
+module.exports = {createComment, deleteComment, likeComment, getMycomments, getTwitComments, getComment}
